@@ -1,18 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
+<title>DD Enterprises</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DD Enterprises Store</title>
 <style>
 body{font-family:Arial;margin:0;background:#f5f5f5}
-header{background:#111;color:white;padding:15px;text-align:center}
-.hero{padding:40px;text-align:center;background:#eee}
+header{background:#111;color:#fff;text-align:center;padding:15px}
 .products{display:flex;flex-wrap:wrap;justify-content:center;gap:20px;padding:30px}
-.product{background:white;padding:15px;border-radius:10px;width:250px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,0.1)}
+.product{background:#fff;padding:15px;border-radius:10px;width:250px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,0.1)}
 .product img{width:100%;border-radius:10px}
 button{background:black;color:white;border:none;padding:10px;margin-top:10px;cursor:pointer}
-footer{text-align:center;padding:20px;background:#111;color:white}
 </style>
 </head>
 
@@ -20,50 +17,71 @@ footer{text-align:center;padding:20px;background:#111;color:white}
 
 <header>
 <h1>DD Enterprises</h1>
+<p>Smart Products for Better Life</p>
 </header>
-
-<section class="hero">
-<h2>Smart Products for Better Life</h2>
-<p>Trending products that improve comfort and lifestyle</p>
-</section>
 
 <section class="products">
 
-<!-- Pillow -->
 <div class="product">
-<img src="pillow.jpg">
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Neck_pillow.jpg/640px-Neck_pillow.jpg">
 <h3>Cervical Pillow</h3>
-<p>₹2999</p>
-<a href="https://www.aliexpress.com/wholesale?SearchText=cervical+pillow" target="_blank">
-<button>Buy Now</button>
-</a>
+<button onclick="buyProduct('pillow')">Buy Now</button>
 </div>
 
-<!-- Seat Cushion -->
 <div class="product">
-<img src="seat.jpg">
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Office_chair_cushion.jpg/640px-Office_chair_cushion.jpg">
 <h3>Seat Cushion</h3>
-<p>₹1999</p>
-<a href="https://www.aliexpress.com/wholesale?SearchText=seat+cushion+memory+foam" target="_blank">
-<button>Buy Now</button>
-</a>
+<button onclick="buyProduct('seat')">Buy Now</button>
 </div>
 
-<!-- Lazy Glasses -->
 <div class="product">
-<img src="glasses.jpg">
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Lazy_glasses.jpg/640px-Lazy_glasses.jpg">
 <h3>Lazy Glasses</h3>
-<p>₹1299</p>
-<a href="https://www.aliexpress.com/wholesale?SearchText=lazy+glasses+prism" target="_blank">
-<button>Buy Now</button>
-</a>
+<button onclick="buyProduct('glasses')">Buy Now</button>
 </div>
 
 </section>
 
-<footer>
-<p>© 2026 DD Enterprises</p>
-</footer>
+<script>
+
+// Detect country
+async function getCountry(){
+  let res = await fetch("https://ipapi.co/json/");
+  let data = await res.json();
+  return data.country;
+}
+
+async function buyProduct(product){
+  let country = await getCountry();
+
+  // INDIA (Meesho)
+  if(country === "IN"){
+    if(product === "pillow"){
+      window.location.href = "https://www.meesho.com/search?q=cervical+pillow";
+    }
+    if(product === "seat"){
+      window.location.href = "https://www.meesho.com/search?q=seat+cushion";
+    }
+    if(product === "glasses"){
+      window.location.href = "https://www.meesho.com/search?q=lazy+glasses";
+    }
+  }
+
+  // FOREIGN (AliExpress)
+  else{
+    if(product === "pillow"){
+      window.location.href = "https://www.aliexpress.com/wholesale?SearchText=cervical+pillow";
+    }
+    if(product === "seat"){
+      window.location.href = "https://www.aliexpress.com/wholesale?SearchText=seat+cushion";
+    }
+    if(product === "glasses"){
+      window.location.href = "https://www.aliexpress.com/wholesale?SearchText=lazy+glasses";
+    }
+  }
+}
+
+</script>
 
 </body>
 </html>
