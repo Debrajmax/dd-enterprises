@@ -6,24 +6,10 @@
 
 <style>
 body{font-family:Arial;margin:0;background:#f3f3f3}
+header{background:#131921;color:white;padding:15px;text-align:center;font-size:22px}
 
-/* HEADER */
-header{
-background:#131921;
-color:white;
-padding:15px;
-font-size:22px;
-text-align:center;
-}
+.grid{display:flex;flex-wrap:wrap;justify-content:center}
 
-/* PRODUCT GRID */
-.grid{
-display:flex;
-flex-wrap:wrap;
-justify-content:center;
-}
-
-/* CARD */
 .card{
 background:white;
 margin:15px;
@@ -32,19 +18,10 @@ width:250px;
 border-radius:10px;
 box-shadow:0 0 10px rgba(0,0,0,0.1);
 text-align:center;
-transition:0.3s;
 }
 
-.card:hover{
-transform:scale(1.05);
-}
+.card img{width:100%;border-radius:10px}
 
-.card img{
-width:100%;
-border-radius:10px;
-}
-
-/* BUTTON */
 button{
 background:#ffd814;
 border:none;
@@ -55,44 +32,24 @@ cursor:pointer;
 border-radius:5px;
 }
 
-button:hover{
-background:#f7ca00;
-}
+/* PRODUCT PAGE */
+.details{display:none;padding:20px;background:white;margin:20px;border-radius:10px;text-align:center}
 
-/* DETAILS PAGE */
-.details{
-display:none;
-padding:20px;
-background:white;
-margin:20px;
-border-radius:10px;
-}
+.main-img{width:300px;border-radius:10px}
 
-.main-img{
-width:300px;
-border-radius:10px;
-}
-
-.thumbs img{
-width:60px;
-margin:5px;
-cursor:pointer;
-}
-
+.thumbs img{width:60px;margin:5px;cursor:pointer}
 </style>
 </head>
 
 <body>
 
-<header>
-DD Enterprises
-</header>
+<header>DD Enterprises</header>
 
-<!-- PRODUCT LIST -->
+<!-- HOME -->
 <div class="grid" id="home">
 
 <div class="card" onclick="showProduct()">
-<img src="pillow1.jpg">
+<img src="https://m.media-amazon.com/images/I/71zZ9q1zVCL._SX679_.jpg">
 <h3>Cooling Memory Foam Pillow</h3>
 <p>₹2999</p>
 <button>View</button>
@@ -102,31 +59,22 @@ DD Enterprises
 <img src="https://m.media-amazon.com/images/I/61nZ6+9cZVL._SX679_.jpg">
 <h3>Lazy Glasses</h3>
 <p>₹999</p>
-<button onclick="alert('Coming soon')">View</button>
-</div>
-
-<div class="card">
-<img src="https://m.media-amazon.com/images/I/71dEY4Neo3L._SX679_.jpg">
-<h3>LED Desk Lamp</h3>
-<p>₹799</p>
-<button onclick="alert('Coming soon')">View</button>
+<button>View</button>
 </div>
 
 </div>
 
-<!-- PRODUCT DETAILS -->
+<!-- PRODUCT PAGE -->
 <div class="details" id="product">
 
 <h2>Cooling Gel Memory Foam Pillow</h2>
 
-<img id="mainImage" class="main-img" src="pillow1.jpg">
+<img id="mainImage" class="main-img" src="https://m.media-amazon.com/images/I/71zZ9q1zVCL._SX679_.jpg">
 
 <div class="thumbs">
-<img src="pillow1.jpg" onclick="changeImage(this.src)">
-<img src="pillow2.jpg" onclick="changeImage(this.src)">
-<img src="pillow3.jpg" onclick="changeImage(this.src)">
-<img src="pillow4.jpg" onclick="changeImage(this.src)">
-<img src="pillow5.jpg" onclick="changeImage(this.src)">
+<img src="https://m.media-amazon.com/images/I/71zZ9q1zVCL._SX679_.jpg" onclick="changeImage(this.src)">
+<img src="https://m.media-amazon.com/images/I/61lR8K4X5VL._SX679_.jpg" onclick="changeImage(this.src)">
+<img src="https://m.media-amazon.com/images/I/71V0v1zGQPL._SX679_.jpg" onclick="changeImage(this.src)">
 </div>
 
 <p><b>Price: ₹2999</b></p>
@@ -134,17 +82,9 @@ DD Enterprises
 <button onclick="buyNow()">Buy Now</button>
 <button onclick="goBack()">Back</button>
 
-<ul>
-<li>✔ Orthopedic support</li>
-<li>✔ Cooling gel</li>
-<li>✔ Neck pain relief</li>
-<li>✔ Breathable design</li>
-</ul>
-
 </div>
 
 <script>
-
 function showProduct(){
 document.getElementById("home").style.display="none";
 document.getElementById("product").style.display="block";
@@ -160,9 +100,8 @@ document.getElementById("mainImage").src=src;
 }
 
 function buyNow(){
-alert("Order placed! Add payment next.");
+alert("Order placed!");
 }
-
 </script>
 
 </body>
