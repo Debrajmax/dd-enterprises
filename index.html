@@ -12,94 +12,73 @@ header{
 background:#131921;
 color:white;
 padding:15px;
-font-size:20px;
+font-size:22px;
 text-align:center;
 }
 
-/* MAIN */
-.container{
+/* PRODUCT GRID */
+.grid{
 display:flex;
 flex-wrap:wrap;
+justify-content:center;
+}
+
+/* CARD */
+.card{
 background:white;
-margin:20px;
-padding:20px;
+margin:15px;
+padding:15px;
+width:250px;
 border-radius:10px;
-}
-
-/* IMAGE SECTION */
-.left{
-flex:1;
-min-width:300px;
+box-shadow:0 0 10px rgba(0,0,0,0.1);
 text-align:center;
+transition:0.3s;
 }
 
-.main-img{
-width:80%;
+.card:hover{
+transform:scale(1.05);
+}
+
+.card img{
+width:100%;
 border-radius:10px;
 }
 
-.thumbs img{
-width:70px;
-margin:5px;
-cursor:pointer;
-border-radius:5px;
-}
-
-/* DETAILS */
-.right{
-flex:1;
-min-width:300px;
-padding:20px;
-}
-
-.title{
-font-size:22px;
-font-weight:bold;
-}
-
-.price{
-color:#b12704;
-font-size:28px;
-margin:10px 0;
-}
-
-.old{
-text-decoration:line-through;
-color:gray;
-font-size:16px;
-margin-left:10px;
-}
-
+/* BUTTON */
 button{
 background:#ffd814;
 border:none;
-padding:12px;
-width:200px;
+padding:10px;
+width:100%;
+margin-top:10px;
 cursor:pointer;
 border-radius:5px;
-font-size:16px;
-margin-top:10px;
 }
 
 button:hover{
 background:#f7ca00;
 }
 
-.select-box{
-margin-top:15px;
-}
-
-.features li{
-margin:8px 0;
-}
-
-/* REVIEWS */
-.review{
-background:#fff;
-margin:20px;
+/* DETAILS PAGE */
+.details{
+display:none;
 padding:20px;
+background:white;
+margin:20px;
 border-radius:10px;
 }
+
+.main-img{
+width:300px;
+border-radius:10px;
+}
+
+.thumbs img{
+width:60px;
+margin:5px;
+cursor:pointer;
+}
+
 </style>
 </head>
 
@@ -109,78 +88,79 @@ border-radius:10px;
 DD Enterprises
 </header>
 
-<div class="container">
+<!-- PRODUCT LIST -->
+<div class="grid" id="home">
 
-<!-- LEFT IMAGES -->
-<div class="left">
-<img id="mainImage" class="main-img" src="https://m.media-amazon.com/images/I/71zZ9q1zVCL._SX679_.jpg">
+<div class="card" onclick="showProduct()">
+<img src="pillow1.jpg">
+<h3>Cooling Memory Foam Pillow</h3>
+<p>₹2999</p>
+<button>View</button>
+</div>
+
+<div class="card">
+<img src="https://m.media-amazon.com/images/I/61nZ6+9cZVL._SX679_.jpg">
+<h3>Lazy Glasses</h3>
+<p>₹999</p>
+<button onclick="alert('Coming soon')">View</button>
+</div>
+
+<div class="card">
+<img src="https://m.media-amazon.com/images/I/71dEY4Neo3L._SX679_.jpg">
+<h3>LED Desk Lamp</h3>
+<p>₹799</p>
+<button onclick="alert('Coming soon')">View</button>
+</div>
+
+</div>
+
+<!-- PRODUCT DETAILS -->
+<div class="details" id="product">
+
+<h2>Cooling Gel Memory Foam Pillow</h2>
+
+<img id="mainImage" class="main-img" src="pillow1.jpg">
 
 <div class="thumbs">
-<img src="https://m.media-amazon.com/images/I/71zZ9q1zVCL._SX679_.jpg" onclick="changeImage(this.src)">
-<img src="https://m.media-amazon.com/images/I/61lR8K4X5VL._SX679_.jpg" onclick="changeImage(this.src)">
-<img src="https://m.media-amazon.com/images/I/71V0v1zGQPL._SX679_.jpg" onclick="changeImage(this.src)">
-</div>
-</div>
-
-<!-- RIGHT DETAILS -->
-<div class="right">
-
-<div class="title">
-Cooling Gel Memory Foam Cervical Pillow – Orthopedic Neck Support
+<img src="pillow1.jpg" onclick="changeImage(this.src)">
+<img src="pillow2.jpg" onclick="changeImage(this.src)">
+<img src="pillow3.jpg" onclick="changeImage(this.src)">
+<img src="pillow4.jpg" onclick="changeImage(this.src)">
+<img src="pillow5.jpg" onclick="changeImage(this.src)">
 </div>
 
-<div class="price">
-₹2999 <span class="old">₹5999</span>
-</div>
-
-<!-- VARIANTS -->
-<div class="select-box">
-<label>Select Color:</label><br>
-<select>
-<option>Purple</option>
-<option>Blue</option>
-<option>White</option>
-</select>
-</div>
-
-<div class="select-box">
-<label>Select Size:</label><br>
-<select>
-<option>Standard (19x12 inch)</option>
-<option>Large</option>
-</select>
-</div>
+<p><b>Price: ₹2999</b></p>
 
 <button onclick="buyNow()">Buy Now</button>
+<button onclick="goBack()">Back</button>
 
-<ul class="features">
-<li>✔ Orthopedic memory foam support</li>
-<li>✔ Cooling gel technology</li>
-<li>✔ Reduces neck & shoulder pain</li>
-<li>✔ Breathable washable cover</li>
-<li>✔ Ideal for all sleeping positions</li>
+<ul>
+<li>✔ Orthopedic support</li>
+<li>✔ Cooling gel</li>
+<li>✔ Neck pain relief</li>
+<li>✔ Breathable design</li>
 </ul>
 
-</div>
-</div>
-
-<!-- REVIEWS -->
-<div class="review">
-<h3>Customer Reviews ⭐⭐⭐⭐⭐</h3>
-<p>“This pillow fixed my neck pain completely!”</p>
-<p>“Cooling effect is amazing, highly recommended.”</p>
 </div>
 
 <script>
 
-// CHANGE IMAGE
-function changeImage(src){
-document.getElementById("mainImage").src = src;
+function showProduct(){
+document.getElementById("home").style.display="none";
+document.getElementById("product").style.display="block";
 }
 
-// BUY BUTTON
+function goBack(){
+document.getElementById("home").style.display="flex";
+document.getElementById("product").style.display="none";
+}
+
+function changeImage(src){
+document.getElementById("mainImage").src=src;
+}
+
 function buyNow(){
-alert("Order placed! Next step: add payment system.");
+alert("Order placed! Add payment next.");
 }
 
 </script>
