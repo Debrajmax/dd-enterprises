@@ -3,84 +3,225 @@
 <head>
 <title>DD Enterprises</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <style>
-body{font-family:Arial;margin:0;background:#f5f5f5}
-header{background:#111;color:#fff;text-align:center;padding:15px}
-.products{display:flex;flex-wrap:wrap;justify-content:center;gap:20px;padding:30px}
-.product{background:#fff;padding:15px;border-radius:10px;width:250px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,0.1)}
-.product img{width:100%;border-radius:10px}
-button{background:black;color:white;border:none;padding:10px;margin-top:10px;cursor:pointer}
+body{margin:0;font-family:Arial;background:#f3f3f3}
+
+/* HEADER */
+header{
+background:#131921;
+color:white;
+padding:15px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+header h2{margin:0}
+.search{
+width:40%;
+padding:8px;
+border:none;
+border-radius:5px;
+}
+
+/* NAV */
+nav{
+background:#232f3e;
+color:white;
+padding:10px;
+text-align:center;
+}
+
+/* PRODUCTS GRID */
+.container{
+padding:20px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px;
+}
+
+/* PRODUCT CARD */
+.card{
+background:white;
+padding:15px;
+border-radius:8px;
+box-shadow:0 2px 8px rgba(0,0,0,0.1);
+transition:0.3s;
+}
+.card:hover{
+transform:scale(1.03);
+}
+
+.card img{
+width:100%;
+border-radius:8px;
+}
+
+.price{
+color:#b12704;
+font-size:18px;
+margin:5px 0;
+}
+
+button{
+background:#ffd814;
+border:none;
+padding:10px;
+width:100%;
+cursor:pointer;
+border-radius:5px;
+}
+button:hover{
+background:#f7ca00;
+}
+
+/* CART */
+#cart{
+position:fixed;
+right:10px;
+bottom:10px;
+background:white;
+padding:15px;
+border-radius:10px;
+width:250px;
+box-shadow:0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* POPUP */
+#popup{
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.6);
+}
+.popup-box{
+background:white;
+width:300px;
+margin:100px auto;
+padding:20px;
+border-radius:10px;
+text-align:center;
+}
+
+footer{
+background:#131921;
+color:white;
+text-align:center;
+padding:20px;
+margin-top:40px;
+}
 </style>
 </head>
 
 <body>
 
 <header>
-<h1>DD Enterprises</h1>
-<p>Smart Products for Better Life</p>
+<h2>DD Enterprises</h2>
+<input type="text" class="search" placeholder="Search products...">
 </header>
 
-<section class="products">
+<nav>
+Trending | Electronics | Comfort | Lifestyle
+</nav>
 
-<div class="product">
+<div class="container">
+
+<!-- PRODUCT 1 -->
+<div class="card">
 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Neck_pillow.jpg/640px-Neck_pillow.jpg">
 <h3>Cervical Pillow</h3>
-<button onclick="buyProduct('pillow')">Buy Now</button>
+<p class="price">₹2999</p>
+<button onclick="addToCart('Cervical Pillow',2999)">Add to Cart</button>
+<button onclick="buyNow('Cervical Pillow',2999)">Buy Now</button>
 </div>
 
-<div class="product">
+<!-- PRODUCT 2 -->
+<div class="card">
 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Office_chair_cushion.jpg/640px-Office_chair_cushion.jpg">
 <h3>Seat Cushion</h3>
-<button onclick="buyProduct('seat')">Buy Now</button>
+<p class="price">₹1999</p>
+<button onclick="addToCart('Seat Cushion',1999)">Add to Cart</button>
+<button onclick="buyNow('Seat Cushion',1999)">Buy Now</button>
 </div>
 
-<div class="product">
+<!-- PRODUCT 3 -->
+<div class="card">
 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Lazy_glasses.jpg/640px-Lazy_glasses.jpg">
 <h3>Lazy Glasses</h3>
-<button onclick="buyProduct('glasses')">Buy Now</button>
+<p class="price">₹1299</p>
+<button onclick="addToCart('Lazy Glasses',1299)">Add to Cart</button>
+<button onclick="buyNow('Lazy Glasses',1299)">Buy Now</button>
 </div>
 
-</section>
+</div>
+
+<!-- CART -->
+<div id="cart">
+<h3>Cart 🛒</h3>
+<ul id="cart-items"></ul>
+<p>Total: ₹<span id="total">0</span></p>
+</div>
+
+<!-- POPUP -->
+<div id="popup">
+<div class="popup-box">
+<h3 id="product-name"></h3>
+<p>Price: ₹<span id="product-price"></span></p>
+<button onclick="confirmOrder()">Confirm Order</button>
+<br><br>
+<button onclick="closePopup()">Cancel</button>
+</div>
+</div>
+
+<footer>
+<p>© 2026 DD Enterprises</p>
+</footer>
 
 <script>
+let cart=[];
+let total=0;
+let selectedProduct="";
 
-// Detect country
-async function getCountry(){
-  let res = await fetch("https://ipapi.co/json/");
-  let data = await res.json();
-  return data.country;
+// ADD TO CART
+function addToCart(name,price){
+cart.push({name,price});
+total+=price;
+updateCart();
 }
 
-async function buyProduct(product){
-  let country = await getCountry();
-
-  // INDIA (Meesho)
-  if(country === "IN"){
-    if(product === "pillow"){
-      window.location.href = "https://www.meesho.com/search?q=cervical+pillow";
-    }
-    if(product === "seat"){
-      window.location.href = "https://www.meesho.com/search?q=seat+cushion";
-    }
-    if(product === "glasses"){
-      window.location.href = "https://www.meesho.com/search?q=lazy+glasses";
-    }
-  }
-
-  // FOREIGN (AliExpress)
-  else{
-    if(product === "pillow"){
-      window.location.href = "https://www.aliexpress.com/wholesale?SearchText=cervical+pillow";
-    }
-    if(product === "seat"){
-      window.location.href = "https://www.aliexpress.com/wholesale?SearchText=seat+cushion";
-    }
-    if(product === "glasses"){
-      window.location.href = "https://www.aliexpress.com/wholesale?SearchText=lazy+glasses";
-    }
-  }
+// UPDATE CART
+function updateCart(){
+let list=document.getElementById("cart-items");
+list.innerHTML="";
+cart.forEach(item=>{
+let li=document.createElement("li");
+li.textContent=item.name+" - ₹"+item.price;
+list.appendChild(li);
+});
+document.getElementById("total").innerText=total;
 }
 
+// BUY NOW
+function buyNow(name,price){
+selectedProduct=name;
+document.getElementById("product-name").innerText=name;
+document.getElementById("product-price").innerText=price;
+document.getElementById("popup").style.display="block";
+}
+
+// CLOSE POPUP
+function closePopup(){
+document.getElementById("popup").style.display="none";
+}
+
+// CONFIRM ORDER
+function confirmOrder(){
+alert("Order placed for "+selectedProduct+" ✅\\nNext step: add payment system");
+closePopup();
+}
 </script>
 
 </body>
